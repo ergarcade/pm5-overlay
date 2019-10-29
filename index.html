@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <title>Erg Arcade - pm5 video overlay</title>
+
+        <script src="js/pm5.js"></script>
+        <script src="js/pm5-printables.js"></script>
+        <script src="js/p5.min.js"></script>
+        <script src="js/app.js"></script>
+
+        <link rel="stylesheet" href="css/style.css" type="text/css" />
+
+        <style>
+        body {
+            width: 640px;
+            margin: 0 auto;
+        }
+
+        canvas {
+            border: 1px solid #000;
+        }
+
+        #stopRecord, #downloadLink {
+            display: none;
+        }
+
+        dt {
+            font-weight: bold;
+        }
+        dd {
+            margin-bottom: 1em;
+        }
+        </style>
+    </head>
+
+    <body>
+        <h1>pm5 video overlay</h1>
+        <p>
+        Record a video of a <a href="https://www.concept2.com">Concept2 Ergometer</a> session
+        overlaid with pace information.
+        </p>
+        <hr />
+        <p>
+            <button id="connect">Connect to PM5</button>
+            <button id="startRecord">Start recording</button>
+            <button id="stopRecord">Stop recording</button>
+            <a id="downloadLink">Download video</a>
+        </p>
+        <div id="sketch-holder"></div>
+        <hr />
+        <h2>Use cases</h2>
+        <ul>
+            <li>Coach wants to provide technique video <strong>and</strong>
+                showing pace / stroke / distance / time information.</li>
+            <li>Athlete wants to compare old and recent technique sessions
+                <strong>simultaneously</strong> with pace /stroke / distance /
+                time information.</li>
+        </ul>
+
+        <h2>Requires</h2>
+        <ul>
+            <li><a href="https://www.google.com/chrome">Chrome web browser</a></li>
+            <li>Laptop / computer with a camera and Bluetooth (not mobile compatible)</li>
+            <li>PM5-enabled ergometer</li>
+            <li>Optional: video editing tool of your choice</li>
+        </ul>
+
+        <h2>Usage</h2>
+        <ul>
+            <li>Point camera at rower / SkiErg / BikeErg.</li>
+            <li>Enable Bluetooth (<strong>More Options</strong> > <strong>Turn
+                    Wireless On</strong>) on PM5.</li>
+            <li>Click <strong>Connect to PM5</strong> above. Wait until
+                connection is complete. This takes a few seconds; be
+                patient.</li>
+            <li>When ready, click <strong>Start recording</strong>.</li>
+            <li>When you're done, click <strong>Stop recording</strong>.</li>
+            <li>Download the video by clicking the <strong>Download video</strong> link.</li>
+        </ul>
+
+        <h2>FAQ</h2>
+        <dl>
+            <dt>What is the output format for the video?</dt>
+            <dd><a href="https://www.webmproject.org/about/">.webm</a></dd>
+
+            <dt>Does <i>&lt;my video editing software&gt;</i> work with .webm?</dt>
+            <dd>Possibly. There are plugins / importers and transcoders available;
+                check <a href="https://www.google.com">the internet</a>.</dd>
+
+            <dt>I don't see any video in the box above!</dt>
+            <dd>Make sure that you have given permission for this web page to
+                access your camera. Don't worry, the video is not uploaded anywehere
+                anywhere and stays only on this page until you decide to download
+                it to your computer.</dd>
+
+            <dt>Does this thing send my video anywhere?</dt>
+            <dd><strong>No.</strong> All processing occurs on this page in your
+                browser on your computer. When you download the video, you only
+                save it as a file on your computer. It goes nowhere else.</dd>
+
+            <dt>I don't have any specific video editing software. How do I view the
+            video after I download it?</dt>
+            <dd>Drag the video file into an empty browser window and you'll see it.</dd>
+
+            <dt>Does this thing make higher resolution video?</dt>
+            <dd>Not right now; this is on the list of things to fix.</dd>
+
+            <dt>Can I get different statistics on the overlay?</dt>
+            <dd>Not right now; this is on the list of things to fix.</dd>
+
+            <dt>Can I move the statistics overlay around?</dt>
+            <dd>Not right now; this is on the list of things to fix.</dd>
+
+            <dt>This doesn't work on my phone!</dt>
+            <dd>Not built for phone use; try a computer instead.</dd>
+
+            <dt>This doesn't work on my computer!</dt>
+            <dd>This application has been tested and works using the latest
+            version of the <a href="https://www.google.com/chrome">Chrome web
+            browser</a> on <a href="https://www.apple.com/au/macos/mojave/">Mac OS X</a>. YMMV on other
+            platforms.
+
+            <dt>This page looks like balls!</dt>
+            <dd>Yup, this is on the list of things to fix.</dd>
+
+            <dt>Can I get the source code?</dt>
+            <dd>Sure.</dd>
+
+            <dt>I want to yell at you! Where do I find you?</dt>
+            <dd>You can <a href="https://www.reddit.com/user/angrytongan">yell at me here</a>.</dd>
+        </dl>
+    </body>
+
+</html>
