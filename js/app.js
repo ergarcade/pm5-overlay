@@ -43,10 +43,6 @@ let labelConfig = {
     averagePace: {
         label: { left: 5, top: 245, textSize: 10 },
         value: { left: 5, top: 265, textSize: 20 }
-    },
-    averagePower: {
-        label: { left: 5, top: 290, textSize: 10 },
-        value: { left: 5, top: 310, textSize: 20 }
     }
 };
 
