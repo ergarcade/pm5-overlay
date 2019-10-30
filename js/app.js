@@ -32,18 +32,18 @@ let labelConfig = {
         label: { left: 5, top: 110, textSize: 10 },
         value: { left: 5, top: 130, textSize: 20 }
     },
-    strokeRate: {
+    averagePace: {
         label: { left: 5, top: 155, textSize: 10 },
         value: { left: 5, top: 175, textSize: 20 }
     },
-    strokePower: {
+    strokeRate: {
         label: { left: 5, top: 200, textSize: 10 },
         value: { left: 5, top: 220, textSize: 20 }
     },
-    averagePace: {
+    strokePower: {
         label: { left: 5, top: 245, textSize: 10 },
         value: { left: 5, top: 265, textSize: 20 }
-    }
+    },
 };
 
 let capture;
@@ -59,7 +59,10 @@ function setup() {
             height: { min: 480, ideal: captureHeight, max: 1080 }
         }
     }, function(stream) {
-        console.log(capture.width, capture.height);
+        resizeCanvas(capture.width, capture.height);
+        imageWidth = capture.width;
+        imageHeight = capture.height;
+        statsConfig.height = capture.height;
     });
     capture.hide();
 }
@@ -106,6 +109,8 @@ let cbConnected = function() {
 let cbDisconnected = function() {
     document.querySelector('#connect').innerText = 'Connect';
     document.querySelector('#connect').disabled = false;
+
+    shared = {};
 };
 
 let cbMessage = function(m) {
