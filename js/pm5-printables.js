@@ -123,22 +123,22 @@ const pm5printables = {
         return n.toString();
     },
     fixed: function(n) {
-        return n.toFixed(2);
+        return n.toFixed();
     },
     m_per_second: function(n) {
-        return n.toFixed(2) + "m/s";
+        return n.toFixed() + "m/s";
     },
     heartRate: function(n) {
         return n == 255 ? 'N/A' : n;
     },
     watts: function(n) {
-        return n.toFixed(2).toLocaleString() + 'W';
+        return n.toFixed().toLocaleString() + 'W';
     },
     calories: function(n) {
         return n.toLocaleString() + 'cals';
     },
     metres_fixed: function(n) {
-        return n.toFixed(2).toLocaleString() + 'm';
+        return n.toFixed().toLocaleString() + 'm';
     },
     splitIntervalType: function(n) {
         return n.toString();
