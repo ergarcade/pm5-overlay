@@ -7,7 +7,7 @@ let imageHeight= 360;
 let statsConfig = {
     left: 0,
     top: 0,
-    width: 140,
+    width: 200,
     height: imageHeight,
     fill: 'rgba(64, 64, 64, 0.5)',
     color: 'rgb(255, 255, 255)'
@@ -21,28 +21,28 @@ let statsConfig = {
  */
 let labelConfig = {
     elapsedTime: {
-        label: { left: 5, top: 20, textSize: 10 },
-        value: { left: 5, top: 40, textSize: 20 }
+        label: { left: 5, top: 20, textSize: 20 },
+        value: { left: 5, top: 50, textSize: 30 }
     },
     distance: {
-        label: { left: 5, top: 65, textSize: 10 },
-        value: { left: 5, top: 85, textSize: 20 }
+        label: { left: 5, top: 90, textSize: 20 },
+        value: { left: 5, top: 120, textSize: 30 }
     },
     currentPace: {
-        label: { left: 5, top: 110, textSize: 10 },
-        value: { left: 5, top: 130, textSize: 20 }
+        label: { left: 5, top: 160, textSize: 20 },
+        value: { left: 5, top: 190, textSize: 30 }
     },
     averagePace: {
-        label: { left: 5, top: 155, textSize: 10 },
-        value: { left: 5, top: 175, textSize: 20 }
+        label: { left: 5, top: 230, textSize: 20 },
+        value: { left: 5, top: 260, textSize: 30 }
     },
     strokeRate: {
-        label: { left: 5, top: 200, textSize: 10 },
-        value: { left: 5, top: 220, textSize: 20 }
+        label: { left: 5, top: 300, textSize: 20 },
+        value: { left: 5, top: 330, textSize: 30 }
     },
     strokePower: {
-        label: { left: 5, top: 245, textSize: 10 },
-        value: { left: 5, top: 265, textSize: 20 }
+        label: { left: 5, top: 370, textSize: 20 },
+        value: { left: 5, top: 400, textSize: 30 }
     },
 };
 
