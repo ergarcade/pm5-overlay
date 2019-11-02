@@ -6,7 +6,7 @@ const pm5printables = {
         return new Date(msecs).toISOString().substr(11, 8);
     },
     secs2hms: function(secs) {
-        return new Date(secs * 1000).toISOString().substr(11, 11);
+        return new Date(secs * 1000).toISOString().substr(11, 10);
     },
     metres: function(m) {
         return m.toLocaleString() + 'm';
