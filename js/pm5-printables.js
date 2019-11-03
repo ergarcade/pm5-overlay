@@ -177,7 +177,35 @@ const pm5printables = {
         return r;
     },
     erg_machine_type: function(n) {
-        return n.toString();
+        r = '';
+
+        switch (n) {
+            case 0: r = 'Static D'; break;
+            case 1: r = 'Static C'; break;
+            case 2: r = 'Static A'; break;
+            case 3: r = 'Static B'; break;
+            case 5: r = 'Static E'; break;
+            case 7: r = 'Static Simulator'; break;
+            case 8: r = 'Static Dynamic'; break;
+            case 16: r = 'Slides A'; break;
+            case 17: r = 'Slides B'; break;
+            case 18: r = 'Slides C'; break;
+            case 19: r = 'Slides D'; break;
+            case 20: r = 'Slides E'; break;
+            case 32: r = 'Slides Dynamic'; break;
+            case 64: r = 'Static Dyno'; break;
+            case 128: r = 'Static Ski'; break;
+            case 143: r = 'Static Ski (simulator)'; break;
+            case 192: r = 'Bike'; break;
+            case 193: r = 'Bike (arms)'; break;
+            case 194: r = 'Bike (no arms)'; break;
+            case 207: r = 'Bike (simulator)'; break;
+            case 208: r = 'Num'; break;
+            default:
+                break;
+        }
+
+        return r;
     }
 };
 
