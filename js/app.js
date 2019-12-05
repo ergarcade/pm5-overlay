@@ -4,49 +4,107 @@ let captureHeight = 720;
 let imageWidth = 640;
 let imageHeight= 360;
 
-let statsConfig = {
-    left: 0,
-    top: 0,
-    width: 200,
-    height: imageHeight,
-    fill: 'rgba(64, 64, 64, 0.5)',
-    color: 'rgb(255, 255, 255)'
+const absMin = 999999;
+const absMax = 0;
+
+const rangeRestrict = (v, in_min, in_max, out_min, out_max) => {
+  return (v - in_min) * (out_max - out_min) / (in_max - in_min) + out_min;
 };
 
-/*
- * Works for 640x360. Resize if imageWidth / imageHeight are
- * not 640x360.
- *
- * XXX Gah, don't be lazy, write some code to do this.
- */
-let labelConfig = {
-    elapsedTime: {
-        label: { left: 5, top: 20, textSize: 20 },
-        value: { left: 5, top: 50, textSize: 30 }
-    },
-    distance: {
-        label: { left: 5, top: 90, textSize: 20 },
-        value: { left: 5, top: 120, textSize: 30 }
-    },
-    currentPace: {
-        label: { left: 5, top: 160, textSize: 20 },
-        value: { left: 5, top: 190, textSize: 30 }
-    },
-    averagePace: {
-        label: { left: 5, top: 230, textSize: 20 },
-        value: { left: 5, top: 260, textSize: 30 }
-    },
-    strokeRate: {
-        label: { left: 5, top: 300, textSize: 20 },
-        value: { left: 5, top: 330, textSize: 30 }
-    },
-    strokePower: {
-        label: { left: 5, top: 370, textSize: 20 },
-        value: { left: 5, top: 400, textSize: 30 }
-    },
+let Sparkline = (_label, _left, _top, _width, _height, _textSize, _valueSize) => {
+    const _maxResults = _width;
+    let _results = [];
+    let _min = absMin;
+    let _max = absMax;
+
+    return {
+        render: () => {
+            /*
+             * Container.
+             */
+            strokeWeight(0);
+            fill('rgba(64, 64, 64, 0.5)');
+            rect(_left, _top, _width, _height);
+
+            /*
+             * Sparkline.
+             */
+            strokeWeight(1);
+            stroke('rgb(192, 0, 0)');
+            _results.forEach((v, i) => {
+                line(_left+i,
+                    _top + _height,
+                    _left+i,
+                    rangeRestrict(v, _min, _max, _top+_height-1, _top+1));
+            });
+
+            /*
+             * Label and value
+             */
+            strokeWeight(0);
+            fill('rgb(192, 192, 192)');
+
+            textSize(_textSize);
+            textStyle(NORMAL);
+            text(pm5fields[_label].label,
+                _left + 5,
+                _top + _textSize);
+
+            textSize(_valueSize);
+            textStyle(BOLD);
+            if (_results.length) {
+                text(pm5fields[_label].printable(_results[_results.length-1]),
+                    _left + 5,
+                    _top + 5 + 2 * _textSize);
+            }
+        },
+        addResult: (v) => {
+            _results.push(v);
+            if (_results.length > _maxResults) {
+                _results.shift();
+            }
+            _min = absMin;
+            _max = absMax;
+            _results.forEach((v, i) => {
+                if (v < _min) {
+                    _min = v;
+                }
+                if (v > _max) {
+                    _max = v;
+                }
+            });
+        }
+    };
+};
+let sparklines = {
+    'elapsedTime': '',
+    'distance': '',
+    'currentPace': '',
+    'averagePace': '',
+    'strokeRate': '',
+    'strokePower': '',
+    'strokeCalories': '',
+    'totalCalories': '',
+    'heartRate': '',
 };
 
 let capture;
+
+function createSparklines() {
+    let x = 5;
+    let y = 5;
+    let w = imageWidth / 6;
+    let ts = imageHeight * 0.04;
+    let vs = imageHeight * 0.05;
+    let h = ts + vs + 5;
+
+    console.log('calc', imageWidth, imageHeight);
+
+    for (let l in sparklines) {
+        sparklines[l] = Sparkline(l, x, y, w, h, ts, vs);
+        y += h + 5;
+    }
+}
 
 function setup() {
     let canvas = createCanvas(imageWidth, imageHeight);
@@ -62,38 +120,23 @@ function setup() {
         resizeCanvas(capture.width, capture.height);
         imageWidth = capture.width;
         imageHeight = capture.height;
-        statsConfig.height = capture.height;
+
+        createSparklines(); /* resize them */
+
     });
     capture.hide();
+
+    resizeCanvas(imageWidth, imageHeight);
+    frameRate(30);
+
+    createSparklines();
 }
 
 function draw() {
     image(capture, 0, 0, imageWidth, imageHeight);
-    drawStats();
-}
-
-function drawStats() {
-    strokeWeight(0);
-    fill(statsConfig.fill);
-    rect(statsConfig.left, statsConfig.top, statsConfig.width, statsConfig.height);
-
-    fill(statsConfig.color);
-
-    for (let k in labelConfig) {
-        if (shared.hasOwnProperty(k)) {
-            textSize(labelConfig[k].label.textSize);
-            text(pm5fields[k].label, labelConfig[k].label.left, labelConfig[k].label.top);
-
-            textSize(labelConfig[k].value.textSize);
-            text(pm5fields[k].printable(shared[k]), labelConfig[k].value.left, labelConfig[k].value.top);
-        }
+    for (const s in sparklines) {
+        sparklines[s].render();
     }
-}
-
-
-let shared = {};
-let toShared = function(k, v) {
-    shared[k] = v;
 }
 
 let cbConnecting = function() {
@@ -115,8 +158,8 @@ let cbDisconnected = function() {
 
 let cbMessage = function(m) {
     for (let k in m.data) {
-        if (m.data.hasOwnProperty(k)) {
-            toShared(k, m.data[k]);
+        if (m.data.hasOwnProperty(k) && k in sparklines) {
+            sparklines[k].addResult(m.data[k]);
         }
     }
 };
