@@ -137,6 +137,9 @@ const pm5printables = {
     calories: function(n) {
         return n.toLocaleString() + 'cals';
     },
+    caloriesPerHour: function(n) {
+        return n.toLocaleString() + 'cals/h';
+    },
     metres_fixed: function(n) {
         return n.toFixed().toLocaleString() + 'm';
     },
@@ -352,7 +355,7 @@ const pm5fields = {
     },
     strokeCalories: {
         label: 'Stroke Calories',
-        printable: pm5printables['calories'],
+        printable: pm5printables['caloriesPerHour'],
     },
     strokeCount: {
         label: 'Stroke Count',
